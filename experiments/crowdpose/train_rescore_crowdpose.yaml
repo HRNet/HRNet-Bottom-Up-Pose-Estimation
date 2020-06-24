@@ -1,0 +1,13 @@
+DATA_DIR: ''
+DATASET:
+  DATASET: crowd_pose_kpt
+  DATASET_TEST: crowd_pose
+  NUM_JOINTS: 14
+RESCORE:
+  END_EPOCH: 20
+  LR: 0.001
+  HIDDEN_LAYER: 256
+  BATCHSIZE: 1024
+  MODEL_ROOT: 'model/rescore/'
+  MODEL_FILE: 'model/rescore/final_rescore_crowd_pose_kpt.pth'
+  DATA_FILE: 'data/rescore_data/rescore_dataset_train_crowd_pose_kpt'
