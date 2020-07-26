@@ -106,7 +106,7 @@ class HeatmapRegParser(object):
 
         return pos_ind, scores
 
-    def kpts_nms(self, final_heatmaps, kpts, heatmap, use_heatmap):
+    def kpts_nms(self, final_heatmaps, kpts_map, heatmap, use_heatmap):
         """
         Find the people's center by finding the local maximum coordinates on center heatmap.
         Get the regression output by using the offset at the people's center.
@@ -147,7 +147,7 @@ class HeatmapRegParser(object):
             else:
                 scores = torch.cat([scores, scores_this_scale], dim=0)
 
-            kpt_temp = kpts[i][0].permute(1, 2, 0).reshape(-1, self.num_joints, 2)
+            kpt_temp = kpts_map[i][0].permute(1, 2, 0).reshape(-1, self.num_joints, 2)
             if i == 0:
                 kpts = ratio*kpt_temp[pos_ind]
             else:

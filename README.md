@@ -195,7 +195,7 @@ python tools/valid.py \
 python tools/valid.py \
     --cfg experiments/coco/w32/w32_4x_reg_delaysep_bg01_stn_512_adam_lr1e-3_coco_x140.yaml \
     TEST.MODEL_FILE models/pose_coco/pose_hrnet_w32_reg_delaysep_bg01_stn_512_adam_lr1e-3_coco_x140.pth \ 
-    TEST.SCALE 0.5,1,2
+    TEST.SCALE_FACTOR 0.5,1,2
 ```
 
 #### Testing on crowdpose test dataset without multi-scale test using well-trained pose model
@@ -212,7 +212,7 @@ python tools/valid.py \
 python tools/valid.py \
     --cfg experiments/crowdpose/w32/w32_4x_reg_delaysep_bg01_stn_512_adam_lr1e-3_crowdpose_x300.yaml \
     TEST.MODEL_FILE models/pose_crowdpose/pose_hrnet_w32_reg_delaysep_bg01_stn_512_adam_lr1e-3_crowdpose_x300.pth \ 
-    TEST.SCALE 0.5,1,2
+    TEST.SCALE_FACTOR 0.5,1,2
 ```
 
 #### Training on COCO train2017 dataset
