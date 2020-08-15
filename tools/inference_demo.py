@@ -69,6 +69,24 @@ COCO_KEYPOINT_INDEXES = {
 }
 
 
+CROWDPOSE_KEYPOINT_INDEXES = {
+    0: 'left_shoulder',
+    1: 'right_shoulder',
+    2: 'left_elbow',
+    3: 'right_elbow',
+    4: 'left_wrist',
+    5: 'right_wrist',
+    6: 'left_hip',
+    7: 'right_hip',
+    8: 'left_knee',
+    9: 'right_knee',
+    10: 'left_ankle',
+    11: 'right_ankle',
+    12: 'head',
+    13: 'neck'
+}
+
+
 def get_pose_estimation_prediction(cfg, model, image, vis_thre, transforms):
     # size at scale 1.0
     base_size, center, scale = get_multi_scale_size(
@@ -255,8 +273,14 @@ def main():
 
     # write csv
     csv_headers = ['frame']
-    for keypoint in COCO_KEYPOINT_INDEXES.values():
-        csv_headers.extend([keypoint+'_x', keypoint+'_y'])
+    if cfg.DATASET.DATASET_TEST == 'coco':
+        for keypoint in COCO_KEYPOINT_INDEXES.values():
+            csv_headers.extend([keypoint+'_x', keypoint+'_y'])
+    elif cfg.DATASET.DATASET_TEST == 'crowd_pose':
+        for keypoint in COCO_KEYPOINT_INDEXES.values():
+            csv_headers.extend([keypoint+'_x', keypoint+'_y'])
+    else:
+        raise ValueError('Please implement keypoint_index for new dataset: %s.' % cfg.DATASET.DATASET_TEST)
 
     csv_output_filename = os.path.join(args.outputDir, 'pose-data.csv')
     with open(csv_output_filename, 'w', newline='') as csvfile:

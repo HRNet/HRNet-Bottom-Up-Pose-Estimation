@@ -248,8 +248,13 @@ python tools/valid.py \
 
 #### Using inference demo
 ```
-python tools/inference_demo.py --cfg experiments/inference_demo.yaml \
-    --videoFile ../../multi_people.mp4 \
+python tools/inference_demo.py --cfg experiments/inference_demo_coco.yaml \
+    --videoFile ../multi_people.mp4 \
+    --outputDir output \
+    --visthre 0.3 \
+    TEST.MODEL_FILE model/pose_coco/pose_hrnet_w32_reg_delaysep_bg01_stn_512_adam_lr1e-3_coco_x140.pth
+python tools/inference_demo.py --cfg experiments/inference_demo_crowdpose.yaml \
+    --videoFile ../multi_people.mp4 \
     --outputDir output \
     --visthre 0.3 \
     TEST.MODEL_FILE model/pose_crowdpose/pose_hrnet_w32_reg_delaysep_bg01_stn_512_adam_lr1e-3_crowdpose_x300.pth \
