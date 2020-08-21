@@ -37,6 +37,7 @@ from utils.utils import create_logger
 from utils.utils import get_optimizer
 from utils.utils import save_checkpoint
 from utils.utils import setup_logger
+from utils.utils import get_model_summary
 
 
 def parse_args():
@@ -176,15 +177,6 @@ def main_worker(
         'valid_global_steps': 0,
     }
 
-    if not cfg.MULTIPROCESSING_DISTRIBUTED or (
-            cfg.MULTIPROCESSING_DISTRIBUTED
-            and args.rank % ngpus_per_node == 0
-    ):
-        dump_input = torch.rand(
-            (1, 3, cfg.DATASET.INPUT_SIZE, cfg.DATASET.INPUT_SIZE)
-        )
-        #writer_dict['writer'].add_graph(model, (dump_input, ))
-        # logger.info(get_model_summary(model, dump_input, verbose=cfg.VERBOSE))
 
     if args.distributed:
         # For multiprocessing distributed, DistributedDataParallel constructor
@@ -210,6 +202,16 @@ def main_worker(
         model = model.cuda(args.gpu)
     else:
         model = torch.nn.DataParallel(model).cuda()
+
+    if not cfg.MULTIPROCESSING_DISTRIBUTED or (
+            cfg.MULTIPROCESSING_DISTRIBUTED
+            and args.rank % ngpus_per_node == 0
+    ):
+        dump_input = torch.rand(
+            (1, 3, cfg.DATASET.INPUT_SIZE, cfg.DATASET.INPUT_SIZE)
+        ).cuda()
+        #writer_dict['writer'].add_graph(model, (dump_input, ))
+        logger.info(get_model_summary(model, dump_input, verbose=cfg.VERBOSE))
 
     # define loss function (criterion) and optimizer
     loss_factory = MultiLossFactory(cfg).cuda()

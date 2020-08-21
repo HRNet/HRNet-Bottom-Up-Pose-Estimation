@@ -155,14 +155,18 @@ def get_model_summary(model, *input_tensors, item_length=26, verbose=True):
             if isinstance(output, list):
                 output = output[0]
 
-            summary.append(
-                ModuleDetails(
-                    name=layer_name,
-                    input_size=list(input[0].size()),
-                    output_size=list(output.size()),
-                    num_parameters=params,
-                    multiply_adds=flops)
-            )
+            try:
+                summary.append(
+                    ModuleDetails(
+                        name=layer_name,
+                        input_size=list(input[0].size()),
+                        output_size=list(output.size()),
+                        num_parameters=params,
+                        multiply_adds=flops)
+                )
+            except:
+                if params != 0:
+                    raise ValueError(layer_name+' meets some problems and you should check it.')
 
         if not isinstance(module, nn.ModuleList) \
            and not isinstance(module, nn.Sequential) \
