@@ -1,5 +1,8 @@
 # Bottom-Up Human Pose Estimation by Ranking Heatmap-Guided Adaptive Keypoint Estimates
 
+## News
+* \[2021/04/07\] This repository has been replaced by the DEKR(CVPR2021) repository: (https://github.com/HRNet/DEKR).
+
 ## Introduction
 In this work, We present several schemes that are rarely or unthoroughly studied before for improving keypoint detection and grouping (keypoint regression) performance. First, we **exploit the keypoint heatmaps for pixel-wise keypoint regression** instead of separating them for improving keypoint regression. Second, we adopt **a pixel-wise spatial transformer network** to learn adaptive representations for handling the scale and orientation variance to further improve keypoint regression quality. Last, we present **a joint shape and heatvalue scoring scheme** to promote the estimated poses that are more likely to be true poses. Together with the **tradeoff heatmap estimation loss** for balancing the background and keypoint pixels and thus improving heatmap estimation quality, we get the state-of-the-art bottom-up human pose estimation result.
 		
