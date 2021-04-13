@@ -7,6 +7,8 @@
 #include <cmath>
 #include <vector>
 
+#define AT_CHECK TORCH_CHECK
+
 void deformable_im2col(const at::Tensor data_im, const at::Tensor data_offset,
                        const int channels, const int height, const int width,
                        const int ksize_h, const int ksize_w, const int pad_h,
@@ -428,6 +430,7 @@ int deform_conv_backward_parameters_cuda(
   gradOutputBuffer =
       gradOutputBuffer.view({batchSize / im2col_step, nOutputPlane, im2col_step,
                              outputHeight, outputWidth});
+  gradOutputBuffer = gradOutputBuffer.contiguous();
   gradOutputBuffer.copy_(gradOutput);
   gradOutputBuffer =
       gradOutputBuffer.view({batchSize / im2col_step, nOutputPlane,
